@@ -70,11 +70,20 @@ const screen = document.getElementById('screen')
          clearDisplay();
          break;
      case "divide":
-     case "add":
-     case "sub":
-     case "mult":
-         setOperation(buttonValue);
+      setOperation('÷');
          break;
+     case "add":
+      setOperation('+');
+         break;
+     case "sub":
+      setOperation('-');
+         break;
+     case "mult":
+         setOperation('×');
+         break;
+         case "eq":
+            calculate();
+            break;
  }
     }
     function appendNumber(number) {
@@ -101,3 +110,33 @@ function clearDisplay() {
    screen.innerText = '0';
 }
  
+function setOperation(op) {
+   previousNumber = currentNumber;
+   currentNumber = '';
+   operation = op;
+   screen.innerText = op;
+}
+
+function calculate() {
+   let result;
+   switch (operation) {
+       case "÷":
+           result = parseFloat(previousNumber) / parseFloat(currentNumber);
+           break;
+       case "+":
+           result = parseFloat(previousNumber) + parseFloat(currentNumber);
+           break;
+       case "-":
+           result = parseFloat(previousNumber) - parseFloat(currentNumber);
+           break;
+       case "×":
+           result = parseFloat(previousNumber) * parseFloat(currentNumber);
+           break;
+       default:
+           result = currentNumber;
+   }
+   screen.innerText = result.toString();
+   currentNumber = result.toString();
+   previousNumber = '';
+   operation = null;
+}
